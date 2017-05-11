@@ -1,7 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In the test I tried to deliver the images as fast as possible to later process the formats.
 
 Things you may want to cover:
 
