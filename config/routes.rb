@@ -6,4 +6,6 @@ Rails.application.routes.draw do
       get '/images' => 'images#index'
     end
   end
+
+  get '/thumb/:width/:height/:filename.:extension' => 'thumb#index'
 end

@@ -1,5 +1,7 @@
+
+
 module Service
-  module Image
+  module ImageService
 
   end
 end

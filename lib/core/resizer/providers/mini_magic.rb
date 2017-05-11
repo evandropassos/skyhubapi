@@ -9,44 +9,14 @@ class Resizer::Providers::MiniMagic
     self._quality = quality
   end
 
-  def download(url_image)
-    if url_image.blank?
-      raise ArgumentError, "url_image is not defined"
-    end
-
-    extension = get_extension(File.basename(URI.parse(url_image).path))
-    new_image_name = "#{new_filename}#{extension}"
-    new_image_path = File.join(self._path_destination, new_image_name)
-
-    img = MiniMagick::Image::open(url_image)
-
-    img.write(new_image_path) do
-      self.quality = self._quality
-    end
-
-    new_image_path
-  end
-
-  def resize(src_image, size)
-    image = MiniMagick::Image.new(src_image)
-
-    dimensions = get_dimensions_size(size)
-    extension = get_extension(src_image)
-    new_image_name = "#{new_filename}#{dimensions}#{extension}"
-    new_image_path = File.join(self._path_destination, new_image_name)
-
-    image.resize = dimensions
-    image.write new_image_path
-  end
-
   def get_dimensions_size(size)
-    dimensions = ""
+    dimensions = nil
     if size == :small
-      dimensions = "320x240"
+      dimensions = { w: 230, h: 240 }
     elsif size == :medium
-      dimensions = "384x288"
+      dimensions = { w: 384, h: 288 }
     elsif size == :large
-      dimensions = "640x480"
+      dimensions = { w: 640, h: 480 }
     else
       raise ArgumentError, "size is not supported"
     end
@@ -64,8 +34,48 @@ class Resizer::Providers::MiniMagic
     File.extname(file_name)
   end
 
+  def get_extension_by_url(url_image)
+    File.extname(File.basename(URI.parse(url_image).path))
+  end
+
   def exists?(path_file)
     File.exists?(path_file)
+  end
+
+
+  def resize(origin_image, dest_image, width, height)
+    image = MiniMagick::Image::open(origin_image)
+
+    dimensions = "#{width}x#{height}"
+
+    image.resize  dimensions
+    image.write dest_image
+  end
+
+  def check_directory(directory)
+    if not File.directory?(directory)
+      FileUtils.mkdir_p(directory)
+    end
+  end
+
+  def download(url_image)
+    if url_image.blank?
+      raise ArgumentError, "url_image is not defined"
+    end
+
+    check_directory(self._path_destination)
+
+    extension = get_extension_by_url(url_image)
+    new_image_name = "#{new_filename}#{extension}"
+    new_image_path = File.join(self._path_destination, new_image_name)
+
+    img = MiniMagick::Image::open(url_image)
+
+    img.write(new_image_path) do
+      self.quality = self._quality
+    end
+
+    new_image_path
   end
 
 end
