@@ -5,21 +5,21 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
-ruby 2.3.1p112
-* System dependencies
+* Ruby version <br>
+  ruby 2.3.1p112
+* System dependencies <br>
   MongoDB and ImageMagick
 
-* Configuration
-Run command:
-<tt>$ bundle update</tt>
+* Configuration <br>
+  Run command: <br>
+  <tt>$ bundle update</tt>
 
-* How to run the test suite
-Run command:
-<tt>$ rspec</tt>
+* How to run the test suite <br>
+  Run command: <br>
+  <tt>$ rspec</tt>
 
-* Start aplication
-Run command:
-<tt>$ rails s</tt>
-After access endpoint:
-<tt>https://localhost:3000/api/v1/images</tt>
+* Start aplication <br>
+  Run command: <br>
+  <tt>$ rails s</tt> <br>
+  After access endpoint: <br>
+  <tt>https://localhost:3000/api/v1/images</tt>
