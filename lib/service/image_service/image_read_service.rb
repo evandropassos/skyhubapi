@@ -7,8 +7,4 @@ class Service::ImageService::ImageReadService
   def list
     Image.all
   end
-
-  def get_by_id(id)
-    Image.where(id: id).first
-  end
 end

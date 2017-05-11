@@ -3,8 +3,8 @@ class Resizer::Client
     @provider = provider
   end
 
-  def download(url_image)
-    @provider.download(url_image)
+  def download(url_image, dest_file)
+    @provider.download(url_image, dest_file)
   end
 
   def resize(origin_image, dest_image, width, height)

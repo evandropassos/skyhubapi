@@ -4,8 +4,7 @@ require 'find'
 class Resizer::Providers::MiniMagic
   attr_accessor :_path_destination, :_quality
 
-  def initialize(path_destination, quality)
-    self._path_destination = path_destination
+  def initialize(quality)
     self._quality = quality
   end
 
@@ -25,9 +24,9 @@ class Resizer::Providers::MiniMagic
   end
 
   def new_filename
-    o =  [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten;
-    new_file_name  =  (0..15).map{ o[rand(o.length)]  }.join;
-    return new_file_name;
+    o =  [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
+    new_file_name  =  (0..15).map{ o[rand(o.length)]  }.join
+    return new_file_name
   end
 
   def get_extension(file_name)
@@ -44,6 +43,22 @@ class Resizer::Providers::MiniMagic
 
 
   def resize(origin_image, dest_image, width, height)
+    if origin_image.blank?
+      raise ArgumentError, "origin_image is not defined"
+    end
+
+    if dest_image.blank?
+      raise ArgumentError, "dest_image is not defined"
+    end
+
+    if width.nil?
+      raise ArgumentError, "width is not defined"
+    end
+
+    if height.nil?
+      raise ArgumentError, "height is not defined"
+    end
+
     image = MiniMagick::Image::open(origin_image)
 
     dimensions = "#{width}x#{height}"
@@ -58,24 +73,22 @@ class Resizer::Providers::MiniMagic
     end
   end
 
-  def download(url_image)
+  def download(url_image, dest_file)
     if url_image.blank?
       raise ArgumentError, "url_image is not defined"
     end
 
-    check_directory(self._path_destination)
-
-    extension = get_extension_by_url(url_image)
-    new_image_name = "#{new_filename}#{extension}"
-    new_image_path = File.join(self._path_destination, new_image_name)
+    if dest_file.blank?
+      raise ArgumentError, "dest_file is not defined"
+    end
 
     img = MiniMagick::Image::open(url_image)
 
-    img.write(new_image_path) do
+    img.write(dest_file) do
       self.quality = self._quality
     end
 
-    new_image_path
+    dest_file
   end
 
 end

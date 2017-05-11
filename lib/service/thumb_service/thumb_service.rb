@@ -1,5 +1,5 @@
 module Service
-  module ImageService
+  module ThumbService
 
   end
 end

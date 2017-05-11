@@ -26,7 +26,8 @@ class Service::ImageService::ImageWriteService
       new_image.save!
     end
   end
-
+  
+  private
   def _build_url_format(new_file, dimensions, extension)
     "#{@urlapi}/thumb/#{dimensions[:w]}/#{dimensions[:h]}/#{new_file}#{extension}"
   end

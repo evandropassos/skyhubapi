@@ -6,19 +6,20 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-
+ruby 2.3.1p112
 * System dependencies
+  MongoDB and ImageMagick
 
 * Configuration
-
-* Database creation
-
-* Database initialization
+Run command:
+<tt>$ bundle update</tt>
 
 * How to run the test suite
+Run command:
+<tt>$ rspec</tt>
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Start aplication
+Run command:
+<tt>$ rails s</tt>
+After access endpoint:
+<tt>https://localhost:3000/api/v1/images</tt>
